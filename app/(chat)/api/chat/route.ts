@@ -1,6 +1,6 @@
-import { convertToCoreMessages, Message, streamText, tool } from 'ai';
+import { convertToCoreMessages, Message, streamText } from 'ai';
 import { localModel } from '@/ai/model';
-import { z } from 'zod';
+import { tools } from '@/ai/tools';
 
 export async function POST(request: Request) {
   const { messages }: { messages: Array<Message> } = await request.json();
@@ -23,30 +23,7 @@ export async function POST(request: Request) {
         - DO NOT suggest or attempt to create views without user explicitly requesting it
       `,
     messages: coreMessages,
-    tools: {
-      createView: tool({
-        description:
-          'INTERNAL TOOL - Do not call directly. This tool is automatically called when user submits the form.',
-        parameters: z.object({
-          viewname: z
-            .string()
-            .min(2, { message: 'Viewname must be at least 2 characters' }),
-          description: z.string().optional(),
-        }),
-        execute: async ({ viewname, description }) => {
-          console.log({ viewname, description }, 'description');
-          return 'View created successfully!'; // ✅ Return proper response
-        },
-      }),
-      displayViewForm: tool({
-        description:
-          'Display the create view form. Use this when user wants to create a view.',
-        parameters: z.object({}),
-        execute: async () => {
-          return { success: true }; // ✅ Returning an object to indicate success
-        },
-      }),
-    },
+    tools,
   });
 
   return result.toDataStreamResponse({});
