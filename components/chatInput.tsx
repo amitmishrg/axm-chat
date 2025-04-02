@@ -16,7 +16,7 @@ const suggestedActions = [
   {
     title: 'Device usage visualization',
     label: 'Device usage visualization',
-    action: 'Use showDeviceUses tool when user asks about device usage trends',
+    action: 'Use showChart tool when user asks about device usage trends',
   },
 ];
 

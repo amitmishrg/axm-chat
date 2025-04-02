@@ -26,18 +26,21 @@ const createView = createTool({
   },
 });
 
-const showDeviceUses = createTool({
-  description:
-    'Display a bar chart showing desktop and mobile usage statistics. Use this tool to visualize device usage trends over a 6-month period.',
+const showChart = createTool({
+  description: 'Render a chart based on the provided data',
   parameters: z.object({
+    chartType: z.enum(['bar', 'line', 'pie']),
     date: z
       .string()
       .describe('Starting date for the chart (format: YYYY-MM-DD)'),
   }),
-  execute: async ({ date }) => {
+  execute: async ({ chartType, date }) => {
     try {
       const { chartData } = await generateSampleChartData({ date });
-      return chartData;
+      return {
+        chartType,
+        chartData,
+      };
     } catch (error) {
       console.log(error, '-----error');
 
@@ -49,5 +52,5 @@ const showDeviceUses = createTool({
 export const tools = {
   displayViewForm,
   createView,
-  showDeviceUses,
+  showChart,
 };

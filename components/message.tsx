@@ -8,14 +8,19 @@ import { Robot, User } from '@phosphor-icons/react';
 import { CreateViewForm } from './CreateViewForm';
 import { BarChartComponent } from './barChart';
 import { SkeletonLoader } from './skeletonLoader';
+import { LineChartComponent } from './lineChart';
+import { PieChartComponent } from './pieChart';
 
 interface ToolInvocation {
   type: 'tool-invocation';
   toolInvocation: {
     toolCallId: string;
-    toolName: 'displayViewForm' | 'createView' | 'showDeviceUses';
+    toolName: 'displayViewForm' | 'createView' | 'showChart';
     state?: 'call' | 'result'; // Ensure tool states are considered
-    result?: any; // Optional results
+    result?: {
+      chartType: 'bar' | 'line' | 'pie'; // Define supported chart types
+      chartData: any; // Chart data
+    };
   };
 }
 
@@ -96,18 +101,19 @@ export const Message = ({ role, content, parts, append }: MessageProps) => {
                   );
                 }
 
-                case 'showDeviceUses': {
-                  console.log(result, 'result');
+                case 'showChart': {
+                  if (state === 'call')
+                    return <SkeletonLoader message="Generating chart..." />;
+
+                  console.log(result, 'result---');
+
+                  if (!result || !result.chartType || !result.chartData) {
+                    return <p>⚠️ Error: Invalid chart data received.</p>;
+                  }
 
                   return (
                     <div key={toolCallId}>
-                      {state === 'call' ? (
-                        <SkeletonLoader message="Fetching device usage data..." />
-                      ) : result ? (
-                        <BarChartComponent data={result} />
-                      ) : (
-                        <p>⚠️ No data available.</p>
-                      )}
+                      {getChartComponent(result.chartType, result.chartData)}
                     </div>
                   );
                 }
@@ -121,4 +127,20 @@ export const Message = ({ role, content, parts, append }: MessageProps) => {
       </div>
     </div>
   );
+};
+
+/**
+ * Helper function to return the correct chart component based on chartType
+ */
+const getChartComponent = (chartType: string, data: any) => {
+  switch (chartType) {
+    case 'bar':
+      return <BarChartComponent data={data} />;
+    case 'line':
+      return <LineChartComponent data={data} />;
+    case 'pie':
+      return <PieChartComponent data={data} />;
+    default:
+      return <p>⚠️ Unsupported chart type: {chartType}</p>;
+  }
 };
