@@ -5,7 +5,6 @@ import { useChat } from '@ai-sdk/react';
 import { useScrollToBottom } from '@/hooks/use-scroll-to-bottom';
 import { Message } from '@/components/message';
 import { ChatInput } from '@/components/chatInput';
-import { CreateViewForm } from '@/components/CreateViewForm';
 
 export default function Home() {
   const {
@@ -17,7 +16,6 @@ export default function Home() {
     stop,
     error,
     reload,
-    addToolResult,
     isLoading,
   } = useChat({
     maxSteps: 10,
@@ -53,15 +51,6 @@ export default function Home() {
               </button>
             </>
           )}
-          {/* {messages.map((message) => (
-            <Message
-              key={message.id}
-              role={message.role}
-              content={message.content}
-              toolInvocations={message.toolInvocations}
-              append={append}
-            />
-          ))} */}
 
           <div
             ref={messagesEndRef}

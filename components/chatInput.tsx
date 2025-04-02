@@ -13,6 +13,11 @@ const suggestedActions = [
     label: 'Create a new view from the chat',
     action: 'Create a new view',
   },
+  {
+    title: 'Device usage visualization',
+    label: 'Device usage visualization',
+    action: 'Use showDeviceUses tool when user asks about device usage trends',
+  },
 ];
 
 interface ChatInputProps {
