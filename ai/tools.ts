@@ -29,7 +29,7 @@ const createView = createTool({
 const showChart = createTool({
   description: 'Render a chart based on the provided data',
   parameters: z.object({
-    chartType: z.enum(['bar', 'line', 'pie']),
+    chartType: z.enum(['bar', 'line', 'pie', 'area']),
     date: z
       .string()
       .describe('Starting date for the chart (format: YYYY-MM-DD)'),

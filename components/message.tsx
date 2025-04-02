@@ -10,6 +10,7 @@ import { BarChartComponent } from './barChart';
 import { SkeletonLoader } from './skeletonLoader';
 import { LineChartComponent } from './lineChart';
 import { PieChartComponent } from './pieChart';
+import { AreaChartComponent } from './areaChart';
 
 interface ToolInvocation {
   type: 'tool-invocation';
@@ -18,7 +19,7 @@ interface ToolInvocation {
     toolName: 'displayViewForm' | 'createView' | 'showChart';
     state?: 'call' | 'result'; // Ensure tool states are considered
     result?: {
-      chartType: 'bar' | 'line' | 'pie'; // Define supported chart types
+      chartType: 'bar' | 'line' | 'pie' | 'area'; // Define supported chart types
       chartData: any; // Chart data
     };
   };
@@ -103,7 +104,12 @@ export const Message = ({ role, content, parts, append }: MessageProps) => {
 
                 case 'showChart': {
                   if (state === 'call')
-                    return <SkeletonLoader message="Generating chart..." />;
+                    return (
+                      <SkeletonLoader
+                        type="chart"
+                        message="Generating chart..."
+                      />
+                    );
 
                   console.log(result, 'result---');
 
@@ -140,6 +146,8 @@ const getChartComponent = (chartType: string, data: any) => {
       return <LineChartComponent data={data} />;
     case 'pie':
       return <PieChartComponent data={data} />;
+    case 'area':
+      return <AreaChartComponent data={data} />;
     default:
       return <p>⚠️ Unsupported chart type: {chartType}</p>;
   }

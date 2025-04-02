@@ -24,7 +24,7 @@ export async function POST(request: Request) {
           3. After calling displayViewForm, wait for user interaction
         
         - Use the showChart tool to visualize data.
-          1. Ensure chartType is properly specified (bar, line, pie).
+          1. Ensure chartType is properly specified (bar, line, pie, area).
           2. Always ask for a starting date if user doesn't provide one
           3. Use YYYY-MM-DD format for dates
           4. Explain the trends shown in the chart
