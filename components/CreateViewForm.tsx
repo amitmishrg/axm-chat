@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
 
 const formSchema = z.object({
   viewname: z.string().min(2, {
@@ -39,8 +40,6 @@ export function CreateViewForm({
   function onSubmit(values: z.infer<typeof formSchema>) {
     const { viewname, description } = values;
 
-    console.log('Form submitted with values:', values);
-
     try {
       onComplete({ viewname, description });
     } catch (error) {
@@ -50,7 +49,10 @@ export function CreateViewForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 bg-white shadow border rounded-md p-4"
+      >
         <FormField
           control={form.control}
           name="viewname"
@@ -58,13 +60,32 @@ export function CreateViewForm({
             <FormItem>
               <FormLabel>View Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Enter view name" {...field} />
               </FormControl>
               <FormDescription>Give this view a unique name</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter description"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>

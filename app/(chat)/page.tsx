@@ -5,6 +5,7 @@ import { useChat } from '@ai-sdk/react';
 import { useScrollToBottom } from '@/hooks/use-scroll-to-bottom';
 import { Message } from '@/components/message';
 import { ChatInput } from '@/components/chatInput';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const {
@@ -45,10 +46,10 @@ export default function Home() {
 
           {error && (
             <>
-              <div>An error occurred.</div>
-              <button type="button" onClick={() => reload()}>
+              <div className="text-red-500">An error occurred.</div>
+              <Button variant="outline" type="button" onClick={() => reload()}>
                 Retry
-              </button>
+              </Button>
             </>
           )}
 
