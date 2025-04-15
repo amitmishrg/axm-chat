@@ -24,16 +24,13 @@ export default function Home() {
 
   console.log(messages, 'messages');
 
-  const [messagesContainerRef, messagesEndRef] =
-    useScrollToBottom<HTMLDivElement>();
+  // const [messagesContainerRef, messagesEndRef] =
+  //   useScrollToBottom<HTMLDivElement>();
 
   return (
     <div className="flex flex-row justify-center pb-4 md:pb-8 h-dvh bg-background">
       <div className="flex flex-col justify-between items-center gap-4">
-        <div
-          ref={messagesContainerRef}
-          className="flex flex-col gap-4 h-full w-dvw items-center overflow-y-scroll"
-        >
+        <div className="flex flex-col gap-4 h-full w-dvw items-center overflow-y-scroll">
           {messages.map((message) => (
             <Message
               key={message.id}
@@ -53,10 +50,7 @@ export default function Home() {
             </>
           )}
 
-          <div
-            ref={messagesEndRef}
-            className="shrink-0 min-w-[24px] min-h-[24px]"
-          />
+          <div className="shrink-0 min-w-[24px] min-h-[24px]" />
         </div>
 
         <form className="flex flex-row gap-2 relative items-end w-full md:max-w-[500px] max-w-[calc(100dvw-32px) px-4 md:px-0">

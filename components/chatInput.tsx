@@ -9,14 +9,8 @@ import { Button } from './ui/button';
 
 const suggestedActions = [
   {
-    title: 'Create a new view',
-    label: 'Create a new view from the chat',
-    action: 'Create a new view',
-  },
-  {
-    title: 'Device usage visualization',
-    label: 'Device usage visualization',
-    action: 'Use showChart tool when user asks about device usage trends',
+    title: 'help me visualize the scores for every quarter since 1st jan 2024',
+    action: 'help me visualize the scores for every quarter since 1st jan 2024',
   },
 ];
 

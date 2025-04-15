@@ -5,7 +5,6 @@ import { ReactNode } from 'react';
 
 import { Markdown } from './markdown';
 import { Robot, User } from '@phosphor-icons/react';
-import { CreateViewForm } from './CreateViewForm';
 import { BarChartComponent } from './barChart';
 import { SkeletonLoader } from './skeletonLoader';
 import { LineChartComponent } from './lineChart';
@@ -16,7 +15,7 @@ interface ToolInvocation {
   type: 'tool-invocation';
   toolInvocation: {
     toolCallId: string;
-    toolName: 'displayViewForm' | 'createView' | 'showChart';
+    toolName: 'scoresVisualization';
     state?: 'call' | 'result'; // Ensure tool states are considered
     result?: {
       chartType: 'bar' | 'line' | 'pie' | 'area'; // Define supported chart types
@@ -65,44 +64,7 @@ export const Message = ({ role, content, parts, append }: MessageProps) => {
                 part.toolInvocation;
 
               switch (toolName) {
-                case 'displayViewForm': {
-                  if (state === 'call') {
-                    return (
-                      <div key={toolCallId}>
-                        <SkeletonLoader message="Loading view form..." />
-                      </div>
-                    );
-                  }
-                  return (
-                    <div key={toolCallId}>
-                      <CreateViewForm
-                        onComplete={({
-                          viewname,
-                          description = 'Default Description',
-                        }) => {
-                          append({
-                            role: 'user',
-                            content: `createView with viewname: ${viewname} and description: ${description}`,
-                          });
-                        }}
-                      />
-                    </div>
-                  );
-                }
-
-                case 'createView': {
-                  return (
-                    <div key={toolCallId}>
-                      {state === 'call' ? (
-                        <SkeletonLoader message="Creating view..." />
-                      ) : (
-                        <p>✅ View created successfully!</p>
-                      )}
-                    </div>
-                  );
-                }
-
-                case 'showChart': {
+                case 'scoresVisualization': {
                   if (state === 'call')
                     return (
                       <SkeletonLoader
@@ -143,7 +105,7 @@ const getChartComponent = (chartType: string, data: any) => {
     case 'bar':
       return <BarChartComponent data={data} />;
     case 'line':
-      return <LineChartComponent data={data} />;
+      return <LineChartComponent chartData={data} />;
     case 'pie':
       return <PieChartComponent data={data} />;
     case 'area':
