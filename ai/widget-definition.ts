@@ -31,3 +31,8 @@ export interface ScoreVisualizationData {
   definition: WidgetDefinition;
   series: Series[];
 }
+
+export interface SummarizeSentimentResponse {
+  output: string;
+  tool_call_id: string;
+}

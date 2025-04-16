@@ -2,13 +2,7 @@
 
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,

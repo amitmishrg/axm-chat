@@ -1,6 +1,9 @@
 import { generateObject } from 'ai';
 import { z } from 'zod';
-import { ScoreVisualizationData } from './widget-definition';
+import {
+  ScoreVisualizationData,
+  SummarizeSentimentResponse,
+} from './widget-definition';
 import { openai } from '@ai-sdk/openai';
 
 export async function transformScoreVisualizationData({
@@ -52,4 +55,34 @@ export async function getScoreVisualizationData(prompt: string) {
 
   const data = await response.json();
   return data.responseData as ScoreVisualizationData;
+}
+
+export async function getSummarizeSentiment(prompt: string) {
+  try {
+    const response = await fetch(
+      'https://api.integration.axiamatic.cloud/estimation/api/v1/ai/invoke-tool-call/44077',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.S2S_TOKEN}`,
+        },
+        body: JSON.stringify({
+          callbackId: 'cb_1234567890',
+          functionName: 'retrieve_documents',
+          parametersJson:
+            '{"question":"Summarize sentiment from Sprint 6","metadataFilters":{"filters":[{"name":"Sprint","values":["Sprint 6"]}]}}',
+          context: {
+            tenantId: '44077',
+            productInstanceId: '55047',
+          },
+        }),
+      }
+    );
+
+    const { data } = await response.json();
+    return data as SummarizeSentimentResponse;
+  } catch (error) {
+    console.log(error, '---error');
+  }
 }

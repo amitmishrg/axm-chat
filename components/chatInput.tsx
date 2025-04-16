@@ -6,11 +6,14 @@ import React, { useRef, useEffect } from 'react';
 import { ArrowCircleUp, StopCircle } from '@phosphor-icons/react';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-
 const suggestedActions = [
   {
     title: 'help me visualize the scores for every quarter since 1st jan 2024',
     action: 'help me visualize the scores for every quarter since 1st jan 2024',
+  },
+  {
+    title: 'help me to summarize sentiment from Sprint 6 to Sprint 8',
+    action: 'help me to summarize sentiment from Sprint 6 to Sprint 8',
   },
 ];
 

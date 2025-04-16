@@ -17,6 +17,7 @@ export async function POST(request: Request) {
         - You are a helpful assistant. you can use the tools provided to help you answer the user
         - You can use the tools by calling the tool name and passing the arguments
         - use scoresVisualization tool to visualize the scores for user requests
+        - use summarizeSentiment tool to summarize the sentiment details also return all of the stackholder name with their sentiment
         `,
 
     tools,
